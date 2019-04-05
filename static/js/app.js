@@ -20,15 +20,24 @@ function buildMetadata(sample) {
     let url = `samples/${sample}`;
     d3.json(url).then(function (data) {
   
-      let myvalues = data.sample_values.slice(0, 10);
-      let myLables = data.otu_ids.slice(0, 10);
+      let myvalues = data['Date Pulled'];
+      let myLables = data['Chart Rank'];
       let myvalues1 = data.sample_values;
       let myLables1 = data.otu_ids;
       // Plotly Pie Chart
+      var trace1 = {
+        x: myvalues,
+        y: myLables,
+        type: 'scatter'
+      };
+      
+      var data = [trace1];
+      
+      Plotly.newPlot('myDiv', data);
       var staticData = [{
         values: myvalues,
         labels: myLables,
-        type: 'pie'
+        type: 'scatter'
       }];
   
       var layout = {
