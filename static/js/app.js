@@ -19,8 +19,8 @@ function buildCharts(song_name) {
 
     console.log(data)
 
-    let myvalues = data['Date Pulled'];
-    let myLables = data['Chart Rank'];
+    let myvalues = data.date_pulled;
+    let myLables = data.chart_rank;
     // Plotly scatter Chart
     var trace1 = {
       x: myvalues,
