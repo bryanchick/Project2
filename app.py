@@ -11,57 +11,88 @@ from sqlalchemy import create_engine
 from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
-
 
 #################################################
 # Database Setup
-#################################################
 
+app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db/Beatport.sqlite"
 db = SQLAlchemy(app)
 
-# reflect an existing database into a new model
+# created a base class reflected from the existing model
 Base = automap_base()
+
 # reflect the tables
 Base.prepare(db.engine, reflect=True)
 
+# create a reference for the table 
 songs_table = Base.classes.tab
-# Save references to each table
-# Samples_Metadata = Base.classes.tab
+#################################################
+# Route Setup
 
 @app.route("/")
 def index():
-    """Return the homepage."""
-    return render_template("index.html")
-
+  """Return the homepage."""
+  return render_template("index.html")
 
 @app.route("/songs")
 def songs():
-    """Return a list of sample names."""
-    unique_songs = db.engine.execute("select distinct(track_title) FROM tab").fetchall()
-    print(unique_songs, "is my unique songs")
-    unique_songs = [ song[0] for song in unique_songs]
-    return jsonify(unique_songs)
+  """Return a list of sample names."""
+  unique_songs = db.engine.execute("SELECT DISTINCT(track_title) FROM tab").fetchall()
+  # print(unique_songs, "is my unique songs")
+  unique_songs = [ song[0] for song in unique_songs]
+  return jsonify(unique_songs)
+  
+  
+  # go to the database, select the cols you want
+  # where the track_title = song_name
+  # return a JSON dataset that plotlyJS can consume for the chart
+  # this route, will be called when the dropdown value changes
 
+@app.route('/songs/test/<track_title>')
+def get_song_stats(track_title):
 
-@app.route('/songs/test')
-def get_song_stats():
-  songs_info  = db.engine.execute("SELECT * FROM tab").fetchall()
-  songs_info = [song[4] for song in songs_info]
-  return jsonify(songs_info)
+  # create a result object from the track_title specified
+  songs_info  = db.engine.execute("""
+    SELECT * FROM tab
+    WHERE track_title = '{}'
+    """.format(track_title))  
+  
+  # create a 'columns' variable containing the column names
+  columns = songs_info.keys()
+  
+  # retrieved all info for the track specified by 'songs_info'
+  song_rows = songs_info.fetchall()
+  
+  # empty list holding each song object found in database
+  days_on_top100 = []
 
-    # go to the database, select the cols you want
-    # where the track_title = song_name
-    # return a JSON dataset that plotlyJS can consume for the chart
-    # this route, will be called when the dropdown value changes
-
-
+  for row in song_rows:
+    days_on_top100.append(
+      dict(zip(columns, row))
+    )
+  
+  return jsonify(days_on_top100)
+  # songs_data = {}
+  
+  # for song in songs_info:
+  #   songs_data['artist'] = song[0]
+  #   songs_data['track_title'] = song[2]
+  #   songs_data['release'] = song[3]
+  #   songs_data['date pulled'] = song[4]
+  #   songs_data['chart rank'] = song[5]
+  
+  
+  
+  # print(songs_data)
+  
+  # return jsonify(songs_data)
+  
 
 
 # @app.route("/metadata/<sample>")
 # def sample_metadata(sample):
-#     """Return the MetaData for a given sample."""
+#     """Return the MetaData or a given sample."""
 #     sel = [
 #         Samples_Metadata.sample,
 #         Samples_Metadata.ETHNICITY,
