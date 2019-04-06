@@ -45,13 +45,19 @@ def songs():
     return jsonify(unique_songs)
 
 
-@app.route('/songs/<song_name>')
-def get_song_stats(songs_table):
-    pass
+@app.route('/songs/test')
+def get_song_stats():
+  songs_info  = db.engine.execute("SELECT * FROM tab").fetchall()
+  songs_info = [song[4] for song in songs_info]
+  return jsonify(songs_info)
+
     # go to the database, select the cols you want
     # where the track_title = song_name
     # return a JSON dataset that plotlyJS can consume for the chart
     # this route, will be called when the dropdown value changes
+
+
+
 
 # @app.route("/metadata/<sample>")
 # def sample_metadata(sample):

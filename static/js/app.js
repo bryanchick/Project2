@@ -1,6 +1,6 @@
 function buildMetadata(sample) {
 
-  d3.json(`metadata/${sample }`).then(function (data) {
+  d3.json(`metadata/${sample}`).then(function (data) {
     console.log(data)
     d3.select('#sample-metadata').html('')
     let myHtmlblock = d3.select('#sample-metadata');
@@ -10,10 +10,6 @@ function buildMetadata(sample) {
 
   })
 }
-
-// Use sample_values as the values for the PIE chart
-// Use otu_ids as the labels for the pie chart
-// Use otu_labels as the hovertext for the chart
 
 function buildCharts(song_name) {
   console.log(song_name)
