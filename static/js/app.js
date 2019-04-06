@@ -1,7 +1,7 @@
 function buildMetadata(track_title) {
 
   d3.json(`songs/${track_title}`).then(function (data) {
-    console.log(data)
+    // console.log(data)
     d3.select('#sample-metadata').html('')
     let myHtmlblock = d3.select('#sample-metadata');
     Object.keys(data).forEach(key => {
@@ -13,36 +13,65 @@ function buildMetadata(track_title) {
 
 function buildCharts(song_name) {
   console.log(song_name)
-  let url = `/songs/${song_name}`
+  let url = `/songs/${track_title}` // Switch to song_name to display chart
+  // Values not showing up, but are being logged and set up. Need to connect data
+  // to chart. 
+  console.log(url)
 
   d3.json(url).then(function (data) {
 
-    console.log(data)
+   console.log(data)
 
     let myvalues = data.date_pulled;
     let myLables = data.chart_rank;
-    // Plotly scatter Chart
+    // // Plotly scatter Chart
     var trace1 = {
-      x: myvalues,
-      y: myLables,
+       x: myvalues,
+       y: myLables,
+      type: 'scatter',
+      mode: 'markers'
+     };
+    
+    // var data = [trace1];
+    
+    // Plotly.newPlot('scatter', data);
+    // var staticData = [{
+    //   values: myvalues,
+    //   labels: myLables,
+    //   type: 'scatter'
+    // }];
+
+    // var layout = {
+    //   height: 400,
+    //   width: 500
+    // };
+
+    // var trace1 = {
+    //   x: ,
+    //   y: [10, 15, 13, 17],
+    //   mode: 'markers',
+    //   type: 'scatter'
+    // };
+    
+    var trace2 = {
+      x: [2, 3, 4, 5],
+      y: [16, 5, 11, 9],
+      mode: 'lines',
       type: 'scatter'
     };
     
-    var data = [trace1];
+    var trace3 = {
+      x: [1, 2, 3, 4],
+      y: [12, 9, 15, 12],
+      mode: 'lines+markers',
+      type: 'scatter'
+    };
+    
+    var data = [trace1, trace2, trace3];
     
     Plotly.newPlot('scatter', data);
-    var staticData = [{
-      values: myvalues,
-      labels: myLables,
-      type: 'scatter'
-    }];
 
-    var layout = {
-      height: 400,
-      width: 500
-    };
-
-    Plotly.newPlot('scatter', staticData, layout);
+    //Plotly.newPlot('scatter', staticData, layout);
     // // start bubble chart from plotly
     // var trace1 = {
     //   y: myvalues1,
