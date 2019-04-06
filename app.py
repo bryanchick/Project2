@@ -49,7 +49,7 @@ def songs():
   # return a JSON dataset that plotlyJS can consume for the chart
   # this route, will be called when the dropdown value changes
 
-@app.route('/songs/test/<track_title>')
+@app.route('/songs/<track_title>')
 def get_song_stats(track_title):
 
   # create a result object from the track_title specified

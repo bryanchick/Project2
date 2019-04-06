@@ -1,6 +1,6 @@
-function buildMetadata(sample) {
+function buildMetadata(track_title) {
 
-  d3.json(`metadata/${sample}`).then(function (data) {
+  d3.json(`songs/${track_title}`).then(function (data) {
     console.log(data)
     d3.select('#sample-metadata').html('')
     let myHtmlblock = d3.select('#sample-metadata');
