@@ -40,7 +40,7 @@ def songs():
   """Return a list of sample names."""
   unique_songs = db.engine.execute("SELECT DISTINCT(track_title) FROM tab").fetchall()
   # print(unique_songs, "is my unique songs")
-  unique_songs = [ song[0] for song in unique_songs]
+  unique_songs = sorted([ song[0] for song in unique_songs])
   return jsonify(unique_songs)
   
   
@@ -54,8 +54,9 @@ def get_song_stats(track_title):
 
   # create a result object from the track_title specified
   songs_info  = db.engine.execute("""
-    SELECT * FROM tab
+    SELECT date_pulled, track_title, max(chart_rank) as chart_rank FROM tab
     WHERE track_title = '{}'
+    GROUP BY 1,2
     """.format(track_title))  
   
   # create a 'columns' variable containing the column names
