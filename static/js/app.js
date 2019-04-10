@@ -38,41 +38,10 @@ function buildCharts(song_name) {
     
     Plotly.newPlot('scatter', [trace1], layout);
 
-
-    // var layout = {
-    //   height: 400,
-    //   width: 500
-    // };
-
-    
-    // Plotly.newPlot('scatter', data);
-
-    //Plotly.newPlot('scatter', staticData, layout);
-    // // start bubble chart from plotly
-    // var trace1 = {
-    //   y: myvalues1,
-    //   x: myLables1,
-    //   mode: 'markers',
-    //   marker: {
-    //     color: myLables1,
-    //     opacity: myvalues1,
-    //     size: myvalues1,
-    //   }
-    // };
-
-    // var data = [trace1];
-
-    // var layout = {
-    //   title: 'otu_lables',
-    //   showlegend: true,
-    //   height: 600,
-    //   width: 1000
-    // };
-
-    // Plotly.newPlot('bubble', data, layout);
+   
   })
 }
-
+// moment("1982-05-25").countdown().toString(); 
 
 function init() {
   // Grab a reference to the dropdown select element
