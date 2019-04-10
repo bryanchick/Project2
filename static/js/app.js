@@ -28,13 +28,15 @@ function buildCharts(song_name) {
        x: myDates,
        y: myRanks,
       type: 'scatter',
-      mode: 'markers'
+      mode: 'lines+markers'
      };
+    
+     var layout = {yaxis: {autorange: 'reversed'}};
 
      console.log(trace1)
     
     
-    Plotly.newPlot('scatter', [trace1]);
+    Plotly.newPlot('scatter', [trace1], layout);
 
 
     // var layout = {
