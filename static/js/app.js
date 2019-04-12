@@ -42,8 +42,41 @@ function buildCharts(song_name) {
       mode: 'lines+markers'
      };
     
-     var layout = {yaxis: {autorange: 'reversed'}};
-
+    //  var layout = {yaxis: {autorange: 'reversed'}};
+     var layout = {
+      title: {
+        text:'Song on the Top 100',
+        font: {
+          family: 'Arial, sans-serif',
+          size: 24
+        },
+      },
+      
+      xaxis: {
+  
+        title: {
+          text: 'Days on the Top 100',
+          font: {
+            family: 'Arial, sans-serif',
+            size: 18,
+            color: '#7f7f7f'
+          }
+        },
+      },
+      
+      yaxis: {
+       autorange: 'reversed',
+        title: {
+          text: 'Top 100 Rank',
+          font: {
+            family: 'Arial, sans-serif',
+            size: 18,
+            color: '#7f7f7f'
+          }
+        }
+      }
+    
+    };
      console.log(trace1)
     
     
@@ -52,7 +85,6 @@ function buildCharts(song_name) {
    
   })
 }
-// moment("1982-05-25").countdown().toString(); 
 
 function init() {
   // Grab a reference to the dropdown select element
