@@ -57,7 +57,12 @@ def get_song_stats(track_title):
     SELECT date_pulled, track_title, max(chart_rank) as chart_rank FROM tab
     WHERE track_title = '{}'
     GROUP BY 1,2
-    """.format(track_title))  
+    """.format(track_title))
+
+  # songs_info  = db.engine.execute(""" 
+  #   SELECT * FROM tab
+  #   WHERE track_title = '{}'
+  #   """.format(track_title))
   
   # create a 'columns' variable containing the column names
   columns = songs_info.keys()
@@ -74,7 +79,7 @@ def get_song_stats(track_title):
     )
   
   return jsonify(days_on_top100)
-  # songs_data = {}
+  
   
 @app.route("/songs/<track_title>")
 def sample_metadata(track_title):
@@ -100,50 +105,6 @@ def sample_metadata(track_title):
 
     print(sample_metadata)
     return jsonify(sample_metadata)
-
-  # for song in songs_info:
-  #   songs_data['artist'] = song[0]
-  #   songs_data['track_title'] = song[2]
-  #   songs_data['release'] = song[3]
-  #   songs_data['date pulled'] = song[4]
-  #   songs_data['chart rank'] = song[5]
-  
-  
-  
-  # print(songs_data)
-  
-  # return jsonify(songs_data)
-  
-
-
-# @app.route("/metadata/<sample>")
-# def sample_metadata(sample):
-#     """Return the MetaData or a given sample."""
-#     sel = [
-#         Samples_Metadata.sample,
-#         Samples_Metadata.ETHNICITY,
-#         Samples_Metadata.GENDER,
-#         Samples_Metadata.AGE,
-#         Samples_Metadata.LOCATION,
-#         Samples_Metadata.BBTYPE,
-#         Samples_Metadata.WFREQ,
-#     ]
-
-#     results = db.session.query(*sel).filter(Samples_Metadata.sample == sample).all()
-
-    # # Create a dictionary entry for each row of metadata information
-    # sample_metadata = {}
-    # for result in results:
-    #     sample_metadata["sample"] = result[0]
-    #     sample_metadata["ETHNICITY"] = result[1]
-    #     sample_metadata["GENDER"] = result[2]
-    #     sample_metadata["AGE"] = result[3]
-    #     sample_metadata["LOCATION"] = result[4]
-    #     sample_metadata["BBTYPE"] = result[5]
-    #     sample_metadata["WFREQ"] = result[6]
-
-    # print(sample_metadata)
-    # return jsonify(sample_metadata)
 
 
 # @app.route("/samples/<sample>")

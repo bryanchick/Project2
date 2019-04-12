@@ -1,11 +1,15 @@
 function buildMetadata(track_title) {
 
   d3.json(`songs/${track_title}`).then(function (data) {
-    // console.log(data)
-    d3.select('#sample-metadata').html('')
-    let myHtmlblock = d3.select('#sample-metadata');
+    console.log('song data:' + JSON.stringify(data))
+    d3.select('#tab').html('')
+    let myHtmlblock = d3.select('#tab');
     Object.keys(data).forEach(key => {
-      myHtmlblock.append('p').text(key + " : " + data[key])
+      myHtmlblock.append('p').text(
+        `track_title : ${data[key].track_title},
+        date_pulled : ${data[key].date_pulled},
+        chart rank : ${data[key].chart_rank}`)
+    
     })
 
   })
@@ -58,6 +62,7 @@ function init() {
 
     // Use the first sample from the list to build the initial plots
     const firstSample = sampleNames[0];
+    console.log("First Sample" + firstSample)
     buildCharts(firstSample);
     buildMetadata(firstSample);
   });
