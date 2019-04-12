@@ -54,7 +54,7 @@ def get_song_stats(track_title):
 
   # create a result object from the track_title specified
   songs_info  = db.engine.execute("""
-    SELECT date_pulled, track_title, max(chart_rank) as chart_rank FROM tab
+    SELECT artists, date_pulled, track_title, max(chart_rank) as chart_rank FROM tab
     WHERE track_title = '{}'
     GROUP BY 1,2
     """.format(track_title))  

@@ -6,12 +6,12 @@ function buildMetadata(track_title) {
     let myHtmlblock = d3.select('#tab');
     Object.keys(data).forEach(key => {
       myHtmlblock.append('p').text(
-        `track_title : ${data[key].track_title},
+        `artist : ${data[key].artists},
+        track_title : ${data[key].track_title},
         date_pulled : ${data[key].date_pulled},
         chart rank : ${data[key].chart_rank}`)
-    
-    })
 
+    })
   })
 }
 
