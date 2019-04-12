@@ -1,13 +1,20 @@
 function buildMetadata(track_title) {
 
   d3.json(`songs/${track_title}`).then(function (data) {
+    let artist_name = data.map(x => x.artists)[0]
+      .replace("[", "")
+      .replace("]", "")
+    console.log(typeof artist_name, artist_name)
     console.log('song data:' + JSON.stringify(data))
     d3.select('#tab').html('')
     let myHtmlblock = d3.select('#tab');
+    myHtmlblock.append('h4').text(`${track_title} by ${artist_name}`)
+    myHtmlblock.append('hr')
+    
+
     Object.keys(data).forEach(key => {
       myHtmlblock.append('p').text(
-        `artist : ${data[key].artists},
-        track_title : ${data[key].track_title},
+        `
         date_pulled : ${data[key].date_pulled},
         chart rank : ${data[key].chart_rank}`)
 
